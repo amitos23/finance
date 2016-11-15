@@ -14,8 +14,9 @@ Open a browser and register as a user http://127.0.0.1:8000/register
 TIME SHEET:
 Planning and reseach frameworks/libraries to use : 1 hour
 Create new symfony project 
-Deploy, configure and test FOS User Bundle : 30 minutes
+Deploy, configure and test FOS User Bundle : 20 minutes
 Create Default Controllers using symfony script : 20 minutes
-Create, configure ORM entities and Stock Controller + view using symfony script : 1 hour
-download jpgraph and create the plot page and test : 1 hour
+Create, configure ORM entities and Stock Controller + view using symfony script : 40 minutes
+Retreive stock informationfrom Yahoo Finance : 20 minutes
+Download jpgraph and create the plot page and test : 1 hour
 Wrap-up and upload to git hib - 20 minutes

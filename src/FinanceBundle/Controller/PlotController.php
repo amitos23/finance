@@ -23,25 +23,31 @@ class PlotController extends Controller
         $stocks = $em->getRepository('FinanceBundle:Stock')->findByUser($currentUser);
 
         $protValue = array();
-        $twoYearsAgo = strtotime ("-1 year" , time() );
-        foreach ($stocks as $stock) {
-            $yf = new YahooFinance;
-            $historicaldata = $yf->getHistoricalData($stock->getTicker(), date("Y-m-d",$twoYearsAgo),  date("Y-m-d"));
+        $labels = array();
+        $currentTime = time();
+        $numberOfYears = 2;
+        for ($i=0;$i<2;$i++) {
+            $oneYearAgo = strtotime("-1 year", $currentTime);
+            foreach ($stocks as $stock) {
+                $yf = new YahooFinance;
+                $historicaldata = $yf->getHistoricalData($stock->getTicker(), date("Y-m-d",$oneYearAgo),  date("Y-m-d",$currentTime));
 
-            $obj = json_decode($historicaldata, true);
-            if ($obj['query']['count']>0) {
+                $obj = json_decode($historicaldata, true);
+                if ($obj['query']['count'] > 0) {
 
-                $labels = array();
-                foreach ($obj['query']['results']['quote'] as $item) {
-                    $totalValue = $item['Close']*$stock->getNumShares();
-                    if (empty($protValue[strtotime($item['Date'])])) {
-                        $protValue[strtotime($item['Date'])] = $totalValue;
-                    }else {
-                        $protValue[strtotime($item['Date'])] = $protValue[strtotime($item['Date'])] + $totalValue;
+
+                    foreach ($obj['query']['results']['quote'] as $item) {
+                        $totalValue = $item['Close'] * $stock->getNumShares();
+                        if (empty($protValue[strtotime($item['Date'])])) {
+                            $protValue[strtotime($item['Date'])] = $totalValue;
+                        } else {
+                            $protValue[strtotime($item['Date'])] = $protValue[strtotime($item['Date'])] + $totalValue;
+                        }
+                        $labels[strtotime($item['Date'])] = $item['Date'];
                     }
-                    $labels[strtotime($item['Date'])] = $item['Date'];
                 }
             }
+            $currentTime =strtotime("-1 day", $oneYearAgo);;
         }
 
         if (count($protValue)==0) {
@@ -55,7 +61,7 @@ class PlotController extends Controller
 
 
             // Setup the graph
-            $graph = new Graph(3000, 2500);
+            $graph = new Graph(2000, 1500);
             $graph->SetScale("datlin");
 
             $theme_class = new UniversalTheme;
