@@ -1,0 +1,8 @@
+{% extends 'FinanceBundle::base.html.twig' %}
+
+{% block title %}cost vs time{% endblock %}
+
+{% block body %}
+<h1>Your cost of portfolio vs time for 2 last years</h1>
+<img src="data:image/png;base64, {{ EncodedImage }}" />
+{% endblock %}

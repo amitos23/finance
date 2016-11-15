@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Finance Application{% endblock %}</title>
+</head>
+<body>
+
+<div id="top">
+    {% block top %}
+     Hello {{ app.user.username|default('Not Logged') }}
+    {% endblock %}
+</div>
+
+<div id="sidebar">
+    {% block sidebar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/stock">Manage Stocks</a></li>
+            <li><a href="/plot">Plot</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    {% endblock %}
+</div>
+
+<div id="content">
+
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>
