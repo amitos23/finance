@@ -5,6 +5,7 @@ namespace FinanceBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ivory\GoogleMapBundle\Form\Type\PlacesAutocompleteType;
 
 class StockType extends AbstractType
 {
@@ -20,8 +21,15 @@ class StockType extends AbstractType
 //                'data' => 'type ticker information'))
             ->add('ticker')
             ->add('numShares')
+            ->add('location', PlacesAutocompleteType::class)
            // ->add('user')
         ;
+
+
+//        $builder->add('field', PlaceAutocompleteType::class, [
+//            'variable' => 'place_autocomplete',
+//        ]);
+
     }
     
     /**
